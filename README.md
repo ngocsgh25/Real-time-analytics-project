@@ -54,8 +54,8 @@ Built with Kafka, Spark, Pandas, Plotly, and Folium — the system processes wea
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-username/weather-rta.git
-cd weather-rta
+git clone https://github.com/ngocsgh25/Real-time-analytics-project.git
+cd Real-time-analytics-project
 ```
 
 ### 2. Start Kafka and Zookeeper (via Docker)
