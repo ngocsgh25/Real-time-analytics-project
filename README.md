@@ -67,7 +67,7 @@ docker-compose up -d
 ### 3. Create Kafka Topic for Streaming
 After Kafka and Zookeeper are running:
 ```bash
-docker exec kafka-weather-streaming-kafka-1 \
+docker exec real-time-analytics-project-kafka-1 \
   /usr/bin/kafka-topics --create \
   --topic weather-stream \
   --bootstrap-server localhost:9092 \
