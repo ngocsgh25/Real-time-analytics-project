@@ -93,12 +93,12 @@ To run the interactive dashboards:
 
 **Dashboard 1: Live Weather Map**
 ```bash
-cd ~/Real-time-analytics-project
+cd Real-time-analytics-project
 streamlit run live_weather_map.py
 ```
 **Dashboard 2: Activity Recommendations Based on Weather Suitability**
 ```bash
-cd ~/Real-time-analytics-project
+cd Real-time-analytics-project
 streamlit run activity_recommendations.py
 ```
 ---
