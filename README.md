@@ -84,82 +84,43 @@ python producer.py
 ### 5. Start Spark Structured Streaming Consumer
 Read from Kafka and save structured weather data to `.parquet`:
 ```bash
+cd Real-time-analytics-project
 spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0 consumer.py
 ```
+### 6. Launch Streamlit Dashboards
 
-### 6. Launch Dashboard Notebook
+To run the interactive dashboards:
+**Dashboard 1: Live Weather Map**
+```bash
+cd ~/Real-time-analytics-project
+streamlit run live_weather_map.py
+```
+**Dashboard 2: Activity Recommendations Based on Weather Suitability**
+```bash
+cd ~/Real-time-analytics-project
+streamlit run activity_recommendations.py
+```
+---
+
+### 7. Launch Dashboard Notebook
+
+Start the Jupyter Notebook environment:
 ```bash
 jupyter notebook
 ```
 
-
-### 7. Sample Output: Dashboard Visualization
-
-The Jupyter notebook includes multiple dashboards. Below is an example showing how the **Live Weather Map** is created from data within a 15-minute tumbling window.
-
-```python
-from datetime import timedelta
-import folium
-from folium.plugins import MarkerCluster
-
-# Convert timestamp to datetime
-pandas_df['timestamp_readable'] = pd.to_datetime(pandas_df['timestamp_readable'])
-
-# Define tumbling window: last full 15-minute interval
-now = pandas_df['timestamp_readable'].max()
-aligned_now = now - timedelta(
-    minutes=now.minute % 15,
-    seconds=now.second,
-    microseconds=now.microsecond
-)
-window_start = aligned_now - timedelta(minutes=15)
-
-# Filter records
-tumbling_df = pandas_df[
-    (pandas_df['timestamp_readable'] >= window_start) &
-    (pandas_df['timestamp_readable'] < aligned_now)
-].copy()
-
-# Select most recent per city
-latest_per_city = tumbling_df.sort_values("timestamp_readable", ascending=False).drop_duplicates("city")
-
-# Plot using Folium
-weather_map = folium.Map(location=[20, 0], zoom_start=2)
-marker_cluster = MarkerCluster().add_to(weather_map)
-
-for _, row in latest_per_city.iterrows():
-    condition = row["condition_main"]
-    popup_text = f"<b>{row['city']}</b><br>Temp: {row['temperature']}°C<br>Weather: {row['condition_desc']}"
-
-    if condition in ["Rain", "Thunderstorm", "Snow"]:
-        color = "red"
-    elif condition in ["Clouds", "Mist"]:
-        color = "orange"
-    else:
-        color = "green"
-
-    folium.CircleMarker(
-        location=[row["latitude"], row["longitude"]],
-        radius=6,
-        color=color,
-        fill=True,
-        fill_color=color,
-        fill_opacity=0.7,
-        popup=popup_text
-    ).add_to(marker_cluster)
-
-# Save the map
-weather_map.save("weather_dashboard.html")
-```
-
-This map helps teams visually monitor real-time conditions across destinations and quickly assess where weather may disrupt or enable tourism activities.
-
-Open the main Jupyter Notebook to run visualizations and analytics:
-```bash
-jupyter notebook
-```
-
-> You can now explore the dashboards: live map, alerts, activity recommendations, and historical insights.
+Then, open the main notebook file to explore **visualizations** and perform **data analytics**.
+> ✅ You can now explore multiple dashboards, including the live weather map, alert system, activity suggestions, and historical weather insights.
+> Dashboards & Insights:
+> - Dashboard 1: Live Weather Map  
+> - Dashboard 2: Activity Recommendations Based on Weather  
+> - Dashboard 3: Discomfort Detection & Alerts  
+> - Historical Weather Data Exploration (Supporting RTA Strategy & Forecasting)
+>   - Chart 1: Multi-dimensional Radar Chart for City Weather Comparison
+>   - Chart 2: Time Series Weather Trends and Seasonal Patterns
+>   - Chart 3: Dynamic Weather Condition Heatmap by Hour and City
+>   - Chart 4: Weather Volatility and Risk Assessment Scatter Plot
+>   - Chart 5: Interactive Business Intelligence Dashboard for Tourism Marketing
 ---
 
 ## Architecture
