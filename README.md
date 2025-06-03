@@ -90,6 +90,7 @@ spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0 consume
 ### 6. Launch Streamlit Dashboards
 
 To run the interactive dashboards:
+
 **Dashboard 1: Live Weather Map**
 ```bash
 cd ~/Real-time-analytics-project
