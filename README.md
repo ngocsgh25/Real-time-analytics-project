@@ -30,18 +30,20 @@ Built with Kafka, Spark, Pandas, Plotly, and Folium — the system processes wea
 - Color-coded alerts for storms, clouds, or clear skies  
 - Real-time visibility for operators across global locations
 
+### Discomfort & Risk Alerts  
+- Flags cities with hot, cold, humid, or severe conditions  
+- Uses simplified tagging logic for clear decision support  
+- Dynamic bar charts and alert tables inform action
+- Cities with “Severe Weather” are filtered and highlighted separately from heat/cold/humidity tags
+
 ### Activity Recommendation Engine  
 - Scores cities for:
   - Outdoor Exploration  
   - City Leisure  
   - Beach & Water Relaxation  
 - Based on live temperature, humidity, wind, and visibility  
-- HTML dashboard displays top-suited cities per activity
-
-### Discomfort & Risk Alerts  
-- Flags cities with hot, cold, humid, or severe conditions  
-- Uses simplified tagging logic for clear decision support  
-- Dynamic bar charts and alert tables inform action
+- Streamlit dashboard shows top-scoring cities per activity (Outdoor, Leisure, Beach)
+- Uses live 30-minute sliding window and scoring based on weather rules
 
 ### Historical Intelligence  
 - Radar charts, volatility plots, time series, and heatmaps  
@@ -49,8 +51,7 @@ Built with Kafka, Spark, Pandas, Plotly, and Folium — the system processes wea
 - Enables data-driven planning and marketing alignment
 
 ---
-
-## 🚀 How to Run
+## How to Run
 
 ### 1. Clone the Repository
 ```bash
@@ -84,32 +85,24 @@ python producer.py
 ### 5. Start Spark Structured Streaming Consumer
 Read from Kafka and save structured weather data to `.parquet`:
 ```bash
-cd Real-time-analytics-project
 spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0 consumer.py
 ```
-### 6. Launch Streamlit Dashboards
 
-To run the interactive dashboards:
+### 6. Launch Dashboards
 
-**Dashboard 1: Live Weather Map**
+#### Run Streamlit Dashboards (Live Map + Activity Recommendations)
 ```bash
-cd Real-time-analytics-project
 streamlit run live_weather_map.py
+streamlit run activity_recommendations.py
 ```
-**Dashboard 2: Activity Recommendations Based on Weather Suitability**
-```bash
-cd Real-time-analytics-project
-streamlit run activity_dash.py
-```
----
 
-### 7. Launch Dashboard Notebook
-
-Start the Jupyter Notebook environment:
+#### Or launch Jupyter Notebook for alerts and historical analytics
 ```bash
 jupyter notebook
 ```
 
+
+### 7. Sample Output: Dashboard Visualization
 Then, open the main notebook file to explore **visualizations** and perform **data analytics**.
 > ✅ You can now explore multiple dashboards, including the live weather map, alert system, activity suggestions, and historical weather insights.
 > Dashboards & Insights:
@@ -127,7 +120,7 @@ Then, open the main notebook file to explore **visualizations** and perform **da
 ## Architecture
 
 > Architecture:  
-> OpenWeatherMap API → Kafka Producer → Kafka Topic → Spark Structured Streaming → Parquet Storage → Pandas Analytics → Jupyter Dashboard
+> OpenWeatherMap API → Kafka Producer → Kafka Topic → Spark Structured Streaming → Parquet Storage → Pandas Analytics → Streamlit & Jupyter Dashboards
 
 ---
 
@@ -140,7 +133,7 @@ Then, open the main notebook file to explore **visualizations** and perform **da
 | Storage           | Parquet (local)               |
 | Processing        | Pandas, PySpark               |
 | Visualization     | Plotly, Folium, Matplotlib    |
-| Interface         | Jupyter Notebook (static preview) |
+| Interface         | Streamlit (real-time dashboards), Jupyter Notebook (supporting modules) |
 
 ---
 
