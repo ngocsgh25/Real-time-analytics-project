@@ -99,7 +99,7 @@ streamlit run live_weather_map.py
 **Dashboard 2: Activity Recommendations Based on Weather Suitability**
 ```bash
 cd Real-time-analytics-project
-streamlit run activity_recommendations.py
+streamlit run activity_dash.py
 ```
 ---
 
